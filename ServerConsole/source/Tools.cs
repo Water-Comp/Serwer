@@ -14,7 +14,7 @@ namespace ServerConsole.source
 
         public bool Exist(string mission, Variables var)
         {
-            string path = @"Missions\" + var.MissionName + ".db";
+            string path = @"Missions\" + mission + ".db";
             return (File.Exists(path));
         }
 

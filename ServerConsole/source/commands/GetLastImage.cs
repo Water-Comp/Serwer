@@ -19,10 +19,10 @@ namespace ServerConsole.source.commands
         {
             try
             {
-                if (!T.Exist(args[0], Var)) throw new InvalidNameOfMissionException("Mission do not exist");
+                if (!T.Exist(args[0], Var)) throw new InvalidNameOfMissionException("Mission does not exist");
                 T.ConnectWithMission(args[0], Var);
                 const string sqlT = "SELECT MAX(Time) FROM Images";
-                var sql = "SELECT Image FROM Images WHERE Time = " + Var.Db.Query(sqlT);
+                var sql = "SELECT * FROM Images WHERE Time = " + Var.Db.Query(sqlT);
                 string answer = Var.Db.Query(sql);
                 Answer(answer);
             }

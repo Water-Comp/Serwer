@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using ServerConsole.source.exceptions;
 using ServerConsole.source.lib;
 using ServerConsole.source.others;
 
@@ -18,6 +19,7 @@ namespace ServerConsole.source.commands
             try
             {
                 T.Divide(args, Var);
+                if (!T.Exist(args[0], Var)) throw new InvalidNameOfMissionException("Mission does not exist");
                 T.ConnectWithMission(Var.MissionName, Var);
                 for (var i = 0; i < Var.Arguments.Count; i++)
                 {

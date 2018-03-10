@@ -22,7 +22,7 @@ namespace ServerConsole.source.commands
                 if (!T.Exist(Var.MissionName, Var))
                     throw new InvalidNameOfMissionException("Name of mission was not found or was incorrect");
                 T.ConnectWithMission(Var.MissionName, Var);
-                var sql = "SELECT MAX (time) FROM" + Var.Parameter;
+                var sql = "SELECT MAX (time) FROM " + Var.Parameter;
                 string answer = double.Parse(Var.Db.Query(sql)) <= Var.Time ? "Yes" : "No";
                 Answer(answer);
             }

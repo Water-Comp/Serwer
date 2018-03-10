@@ -38,16 +38,19 @@ namespace ServerConsole
                 /*Create tables of parameters*/
                 foreach (var parameter in parameters)
                 {
+                    string sql;
                     if (parameter != "Logs")
                     {
-                        var sql = "CREATE TABLE " + parameter + " (Time real, Value real)";
+                        if (parameter == "Images")
+                            sql = "CREATE TABLE " + parameter + " (Time real, Value text)";
+                        else sql = "CREATE TABLE " + parameter + " (Time real, Value real)";
                         Var.Db.Query(sql);
                         var sqlFill = "INSERT INTO " + parameter + " VALUES ('0', '0')";
                         Var.Db.Query(sqlFill);
                     }
                     else
                     {
-                        var sql = "CREATE TABLE Logs (Time real, Value text)";
+                        sql = "CREATE TABLE Logs (Time real, Value text)";
                         Var.Db.Query(sql);
                     }
                 }
@@ -63,14 +66,25 @@ namespace ServerConsole
 
                 /*Create table of settings*/
                 string sqlSettings = "CREATE TABLE Settings (";
+                int settingsSize = 10;
 
-                for (int i = 0; i < 10; i++)
+                for (int i = 0; i < settingsSize; i++)
                 {
                     sqlSettings += "value" + (i+1) + " real";
-                    if (i + 1 < 10) sqlSettings += ", ";
+                    if (i + 1 < settingsSize) sqlSettings += ", ";
                     else sqlSettings += ", actual integer)";
                 }
                 Var.Db.Query(sqlSettings);
+
+                string sqlSettingsFill = "INSERT INTO Settings VALUES (";
+                for (int i = 0; i < settingsSize; i++)
+                {
+                    sqlSettingsFill += "0";
+                    if (i + 1 < settingsSize) sqlSettingsFill += ", ";
+                    else sqlSettingsFill += ", 0)";
+                }
+
+                Var.Db.Query(sqlSettingsFill);
 
 
 

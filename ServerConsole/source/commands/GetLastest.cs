@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using ServerConsole.source.exceptions;
 using ServerConsole.source.lib;
 using ServerConsole.source.others;
 
@@ -19,9 +20,10 @@ namespace ServerConsole.source.commands
             try
             {
                 T.Divide(args, Var);
+                if (!T.Exist(args[0], Var)) throw new InvalidNameOfMissionException("Mission does not exist");
                 T.ConnectWithMission(Var.MissionName, Var);
                 var sqlTime = "SELECT MAX(time) FROM " + Var.Parameter;
-                var maxTime = int.Parse(Var.Db.Query(sqlTime));
+                var maxTime = Var.Db.Query(sqlTime);
                 var sql = "SELECT * FROM " + Var.Parameter + " WHERE time = " + maxTime;
                 string answer = Var.Db.Query(sql);
                 Answer(answer);

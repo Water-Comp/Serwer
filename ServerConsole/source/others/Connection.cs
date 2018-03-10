@@ -2,6 +2,7 @@
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using ServerConsole.source.others;
 
 namespace ServerConsole.source.lib
 {
@@ -9,6 +10,7 @@ namespace ServerConsole.source.lib
     {
         private static Socket s;
         private TcpListener myList;
+        public ReturnAnswer returnAnswer;
 
         public IPEndPoint localIpEndPoint;
         // Constructor
@@ -17,13 +19,14 @@ namespace ServerConsole.source.lib
             
         }
 
-        public void init(string ip, int port)
+        public void init(string ip, int port, ReturnAnswer returnAnswer)
         {
             IPAddress ipAd = IPAddress.Parse(ip);
             /* Initializes the Listener */
             myList = new TcpListener(ipAd, port);
             /* Start Listeneting at the specified port */
             myList.Start();
+            this.returnAnswer = returnAnswer;
         }
 
 
@@ -31,9 +34,15 @@ namespace ServerConsole.source.lib
         public void Connect()
         {
             /* Accept connection*/
-            s = myList.AcceptSocket();
-            
-
+            try
+            {
+                s = myList.AcceptSocket();
+                returnAnswer.stringIP = IPAddress.Parse(((IPEndPoint) s.LocalEndPoint).Address.ToString()).ToString();
+            }
+            catch (Exception)
+            {
+                
+            }
         }
 
         /* Reciving messeage from client*/
@@ -45,7 +54,7 @@ namespace ServerConsole.source.lib
             for (int i = 0; i < k; i++)
                 wynik = wynik + Convert.ToChar(b[i]);
             localIpEndPoint = (IPEndPoint) s.LocalEndPoint;
-            Console.WriteLine(localIpEndPoint.ToString());
+            wynik = wynik.Replace(',', '.');
             return wynik;
 
         }

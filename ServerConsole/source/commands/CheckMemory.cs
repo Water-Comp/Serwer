@@ -1,20 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ServerConsole.source.exceptions;
 using ServerConsole.source.lib;
+using ServerConsole.source.others;
 
 namespace ServerConsole.source.commands
 {
     class CheckMemory : Command
     {
-        public CheckMemory(Connection connection)
+        public CheckMemory(Connection connection, ReturnAnswer returnAnswer)
         {
             Me = "CheckMemory";
             this.connection = connection;
+            this.returnAnswer = returnAnswer;
         }
 
         protected override void Execute(List<string> args)
@@ -50,8 +49,11 @@ namespace ServerConsole.source.commands
             }
             catch (Exception e)
             {
-                string answer = "!" + e.Message;
-                Answer(answer);
+                ExceptionTransform(e.Message);
+                recive = Me + "_";
+                respond = exceptionMsg;
+                Answer("!" + e.Message);
+                Log.Add(returnAnswer.stringIP, recive, respond, Var.Db);
             }
         }
     }

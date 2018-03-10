@@ -14,3 +14,11 @@ C:\Users\zaqqz\Desktop\Repositories\ServerConsole\ServerConsole\bin\Debug\Server
 C:\Users\zaqqz\Desktop\Repositories\ServerConsole\ServerConsole\bin\Debug\ServerConsole.exe
 C:\Users\zaqqz\Desktop\Repositories\ServerConsole\ServerConsole\bin\Debug\ServerConsole.pdb
 C:\Users\zaqqz\Desktop\Repositories\ServerConsole\ServerConsole\bin\Debug\System.Data.SQLite.xml
+C:\Users\zaqqz\Desktop\Repositories\Serwer\ServerConsole\bin\Debug\ServerConsole.exe.config
+C:\Users\zaqqz\Desktop\Repositories\Serwer\ServerConsole\bin\Debug\ServerConsole.exe
+C:\Users\zaqqz\Desktop\Repositories\Serwer\ServerConsole\bin\Debug\ServerConsole.pdb
+C:\Users\zaqqz\Desktop\Repositories\Serwer\ServerConsole\bin\Debug\System.Data.SQLite.xml
+C:\Users\zaqqz\Desktop\Repositories\Serwer\ServerConsole\obj\Debug\ServerConsole.csprojResolveAssemblyReference.cache
+C:\Users\zaqqz\Desktop\Repositories\Serwer\ServerConsole\obj\Debug\ServerConsole.csproj.CoreCompileInputs.cache
+C:\Users\zaqqz\Desktop\Repositories\Serwer\ServerConsole\obj\Debug\ServerConsole.exe
+C:\Users\zaqqz\Desktop\Repositories\Serwer\ServerConsole\obj\Debug\ServerConsole.pdb

@@ -2,19 +2,18 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ServerConsole.source.exceptions;
 using ServerConsole.source.lib;
+using ServerConsole.source.others;
 
 namespace ServerConsole.source.commands
 {
     class List : Command
     {
-        public List(Connection connection)
+        public List(Connection connection, ReturnAnswer returnAnswer)
         {
             Me = "List";
             this.connection = connection;
+            this.returnAnswer = returnAnswer;
         }
 
         protected override void Execute(List<string> args)
@@ -44,7 +43,8 @@ namespace ServerConsole.source.commands
                     if (i + 1 != something.Count) toAns += " ";
                 }
 
-                Answer(toAns);
+                if (toAns == "") Answer("Any mission was not created");
+                else Answer(toAns);
             }
             catch (Exception e)
             {

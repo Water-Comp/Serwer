@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.SQLite;
 using System.Security.Cryptography;
 using System.Text;
@@ -100,26 +101,51 @@ namespace ServerConsole
 
         public string Query(string sql)
         {
-            string tmp = "";
-            string wynik = "";
-            int i = 0;
-            SQLiteCommand command = new SQLiteCommand(sql, m_dbConnection);
-            SQLiteDataReader reader = command.ExecuteReader();
-            while (reader.Read())
+            try
             {
-                while (reader.FieldCount > i)
+                string tmp = "";
+                string wynik = "";
+                int i = 0;
+                SQLiteCommand command = new SQLiteCommand(sql, m_dbConnection);
+                SQLiteDataReader reader = command.ExecuteReader();
+                while (reader.Read())
                 {
-                    wynik += reader[i].ToString();
-                    wynik += " ";
-                    i++;
+                    while (reader.FieldCount > i)
+                    {
+                        wynik += reader[i].ToString();
+                        wynik += " ";
+                        i++;
+                    }
+
+                    i = 0;
                 }
-                i = 0;
+
+                for (int j = 0; j < wynik.Length - 1; j++)
+                {
+                    tmp += wynik[j];
+                }
+
+                tmp = tmp.Replace('\r', ' ');
+                tmp = tmp.Replace('\n', ' ');
+                string[] splitedvalues = tmp.Split(' ');
+                List<string> list = new List<string>();
+                foreach (var value in splitedvalues)
+                {
+                    if (value != "") list.Add(value);
+                }
+
+                string result = "";
+                foreach (var value in list)
+                {
+                    result += value + " ";
+                }
+
+                return result;
             }
-            for (int j = 0; j < wynik.Length-1; j++)
+            catch (Exception e)
             {
-                tmp += wynik[j];
+                return e.Message;
             }
-            return tmp;
         }
 
         public int getsize()

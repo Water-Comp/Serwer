@@ -12,7 +12,7 @@ namespace ServerConsole.source
             ;
         }
 
-        public bool Exist(string table, Variables var)
+        public bool Exist(string mission, Variables var)
         {
             string path = @"Missions\" + var.MissionName + ".db";
             return (File.Exists(path));
@@ -39,6 +39,23 @@ namespace ServerConsole.source
                 }
         }
 
+        public void Divide(List<string> args, Variables var, bool check)
+        {
+            var.MissionName = "";
+            var.Arguments = new List<string>();
+
+            for (var i = 0; i < args.Count; i++)
+                switch (i)
+                {
+                    case 0:
+                        var.MissionName = args[i];
+                        break;
+                    default:
+                        var.Arguments.Add(args[i]);
+                        break;
+                }
+        }
+
         //Cut table name off time (using in ReciveUpdate)
         public void GetTime(List<string> args, Variables var)
         {
@@ -46,12 +63,12 @@ namespace ServerConsole.source
             {
                 var.MissionName = args[0];
                 var.Parameter = args[1];
-                double.TryParse(args[2], out var time0);
-                var.Time = Convert.ToDouble(time0);
+                args[2] = args[2].Replace('.', ',');
+                var.Time = double.Parse(args[2]);
             }
             catch
             {
-                throw new InvalidParametersException("Invalid parameter was given");
+                throw new InvalidNumberOfParametersException("Not found enough arguments or arguments were incorrect");
             }
         }
 

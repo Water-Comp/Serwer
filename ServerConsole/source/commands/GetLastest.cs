@@ -1,18 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ServerConsole.source.lib;
+using ServerConsole.source.others;
 
 namespace ServerConsole.source.commands
 {
     class GetLastest : Command
     {
-        public GetLastest(Connection connection)
+        public GetLastest(Connection connection, ReturnAnswer returnAnswer)
         {
             Me = "GetLastest";
             this.connection = connection;
+            this.returnAnswer = returnAnswer;
         }
 
         protected override void Execute(List<string> args)
@@ -29,7 +28,11 @@ namespace ServerConsole.source.commands
             }
             catch (Exception e)
             {
+                ExceptionTransform(e.Message);
+                recive = Me + "_" + Var.Parameter;
+                respond = exceptionMsg;
                 Answer("!" + e.Message);
+                Log.Add(returnAnswer.stringIP, recive, respond, Var.Db);
             }
         }
     }

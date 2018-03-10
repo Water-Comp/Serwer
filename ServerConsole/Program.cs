@@ -1,18 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ServerConsole.source;
 using ServerConsole.source.commands;
 using ServerConsole.source.lib;
+using ServerConsole.source.others;
 
 namespace ServerConsole
 {
     class Program
     {
         static void Main(string[] args)
-        {   
+        {
+            ReturnAnswer returnAnswer = new ReturnAnswer();
             
             //Initialize connection
             string IP;
@@ -25,26 +23,29 @@ namespace ServerConsole
                 IP = Console.ReadLine();
                 try
                 {
-                    connection.init(IP, 8001);
+                    connection.init(IP, 8001, returnAnswer);
                     tmp = false;
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     Console.WriteLine("wrong ip");
                 }
             }
 
             //Initailize commands
-            Command create = new Create(connection);
-            Command sendupdate = new SendUpdate(connection);
-            Command reciveupdate = new ReciveUpdate(connection);
-            Command getlastimage = new GetLastImage(connection);
-            Command checktopicality = new CheckTopicality(connection);
-            Command getlastest = new GetLastest(connection);
-            Command list = new List(connection);
-            Command checkmemory = new CheckMemory(connection);
-            Command exist = new Exist(connection);
-            Command getlogs = new GetLogs(connection);
+            Command create = new Create(connection, returnAnswer);
+            Command sendupdate = new SendUpdate(connection, returnAnswer);
+            Command reciveupdate = new ReciveUpdate(connection, returnAnswer);
+            Command getlastimage = new GetLastImage(connection, returnAnswer);
+            Command checktopicality = new CheckTopicality(connection, returnAnswer);
+            Command getlastest = new GetLastest(connection, returnAnswer);
+            Command list = new List(connection, returnAnswer);
+            Command checkmemory = new CheckMemory(connection, returnAnswer);
+            Command exist = new Exist(connection, returnAnswer);
+            Command sendlogs = new SendLogs(connection, returnAnswer);
+            Command set = new Set(connection, returnAnswer);
+            Command checksettings = new CheckSettings(connection, returnAnswer);
+            Command recivesettings = new ReciveSettings(connection, returnAnswer);
 
             //Make a one-way list
             create.SetNext(sendupdate);
@@ -55,16 +56,18 @@ namespace ServerConsole
             getlastest.SetNext(list);
             list.SetNext(checkmemory);
             checkmemory.SetNext(exist);
-            exist.SetNext(getlogs);
+            exist.SetNext(sendlogs);
+            sendlogs.SetNext(set);
+            set.SetNext(checksettings);
+            checksettings.SetNext(recivesettings);
 
             string insert;
 
 
             do
             {
-                //connection.Connect();
-                //insert = connection.Recive();
-                insert = Console.ReadLine();
+                connection.Connect();
+                insert = connection.Recive();
                 Console.WriteLine(insert);
                 create.Next(insert);
             } while (insert != "exit");

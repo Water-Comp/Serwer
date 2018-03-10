@@ -1,26 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 using ServerConsole.source.lib;
+using ServerConsole.source.others;
 
 namespace ServerConsole.source.commands
 {
     class Exist : Command
     {
-        public Exist(Connection connection)
+        public Exist(Connection connection, ReturnAnswer returnAnswer)
         {
             Me = "Exist";
             this.connection = connection;
+            this.returnAnswer = returnAnswer;
         }
 
         protected override void Execute(List<string> args)
         {
-            T.Divide(args, Var);
-            string path = @"Missions\" + Var.MissionName + ".db";
-            Answer(File.Exists(path) ? "Yes" : "No");
+            try
+            {
+                T.Divide(args, Var);
+                string path = @"Missions\" + Var.MissionName + ".db";
+                Answer(File.Exists(path) ? "Yes" : "No");
+            }
+            catch (Exception e)
+            {
+                Answer("!" + e.Message);
+            }
         }
     }
 }

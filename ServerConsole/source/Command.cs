@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using ServerConsole.source.lib;
+using ServerConsole.source.others;
 
 namespace ServerConsole.source
 {
@@ -12,17 +13,22 @@ namespace ServerConsole.source
         protected Command command;
         protected string Me;
         protected Connection connection;
+        protected ReturnAnswer returnAnswer;
+        protected string exceptionMsg;
+        protected string recive = "";
+        protected string respond = "";
 
         public void SetNext(Command command)
         {
             this.command = command;
         }
 
-        public void Answer(string message)
+        public string Answer(string message)
         {
             Console.WriteLine(message);
             connection.Respond(message);
             //have to add answer to logs
+            return message;
         }
 
         public void Next(string insert)
@@ -36,7 +42,17 @@ namespace ServerConsole.source
                 Execute(args);
             }
             else if (command != null) command.Next(insert);
-            else Console.WriteLine("No such command");
+            else Answer("No such command");
+        }
+
+        protected void ExceptionTransform(string message)
+        {
+            exceptionMsg = "";
+            foreach (var ch in message)
+            {
+                if (ch == ' ') exceptionMsg += '-';
+                else exceptionMsg += ch;
+            }
         }
 
         protected abstract void Execute(List<string> args);

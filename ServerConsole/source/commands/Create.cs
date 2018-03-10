@@ -1,20 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ServerConsole.source;
 using ServerConsole.source.exceptions;
 using ServerConsole.source.lib;
+using ServerConsole.source.others;
 
 namespace ServerConsole
 {
     class Create : Command
     {
-        public Create(Connection connection)
+        public Create(Connection connection, ReturnAnswer returnAnswer)
         {
             Me = "Create";
             this.connection = connection;
+            this.returnAnswer = returnAnswer;
         }
 
         protected override void Execute(List<string> args)
@@ -39,23 +38,58 @@ namespace ServerConsole
                 /*Create tables of parameters*/
                 foreach (var parameter in parameters)
                 {
-                    var sql = "CREATE TABLE " + parameter + " (Time real, Value real)";
-                    var sqlFill = "INSERT INTO " + parameter + " VALUES ('0', '0')";
-                    Var.Db.Query(sql);
-                    Var.Db.Query(sqlFill);
+                    if (parameter != "Logs")
+                    {
+                        var sql = "CREATE TABLE " + parameter + " (Time real, Value real)";
+                        Var.Db.Query(sql);
+                        var sqlFill = "INSERT INTO " + parameter + " VALUES ('0', '0')";
+                        Var.Db.Query(sqlFill);
+                    }
+                    else
+                    {
+                        var sql = "CREATE TABLE Logs (Time real, Value text)";
+                        Var.Db.Query(sql);
+                    }
                 }
 
+                /*Create table of other things*/
+                string sqlOth = "CREATE TABLE Other (param text, value text)";
+                Var.Db.Query(sqlOth);
+
+                /*Initialize time of start*/
+                string time = DateTime.Now.ToString("hh:mm:ss");
+                string sqlTime = "INSERT INTO Other VALUES ('start', '" + time + "')";
+                Var.Db.Query(sqlTime);
+
+                /*Create table of settings*/
+                string sqlSettings = "CREATE TABLE Settings (";
+
+                for (int i = 0; i < 10; i++)
+                {
+                    sqlSettings += "value" + (i+1) + " real";
+                    if (i + 1 < 10) sqlSettings += ", ";
+                    else sqlSettings += ", actual integer)";
+                }
+                Var.Db.Query(sqlSettings);
+
+
+
                 //Make an answer
+                recive = Me + "_" + Var.MissionName;
+                respond = "OK";
                 Answer(Answers.Succesful);
             }
             catch (Exception e)
             {
+                ExceptionTransform(e.Message);
+                recive = Me + "_" + Var.MissionName;
+                respond = exceptionMsg;
                 Answer("!" + e.Message);
             }
             finally
             {
                 //Make log
-                string log_content;
+                Log.Add(returnAnswer.stringIP, recive, respond, Var.Db);
             }
         }
     }

@@ -49,23 +49,28 @@
     <Compile Include="source\Answers.cs" />
     <Compile Include="source\Command.cs" />
     <Compile Include="source\commands\CheckMemory.cs" />
+    <Compile Include="source\commands\CheckSettings.cs" />
     <Compile Include="source\commands\CheckTopicality.cs" />
     <Compile Include="source\commands\Exist.cs" />
     <Compile Include="source\commands\Create.cs" />
     <Compile Include="source\commands\GetLastest.cs" />
-    <Compile Include="source\commands\GetLogs.cs" />
     <Compile Include="source\commands\List.cs" />
+    <Compile Include="source\commands\ReciveSettings.cs" />
+    <Compile Include="source\commands\SendLogs.cs" />
+    <Compile Include="source\commands\Set.cs" />
     <Compile Include="source\exceptions\InvalidNameOfMissionException.cs" />
+    <Compile Include="source\exceptions\InvalidNumberOfParametersException.cs" />
     <Compile Include="source\exceptions\InvalidParametersException.cs" />
     <Compile Include="source\exceptions\LowMemoryException.cs" />
-    <Compile Include="source\lib\Connection.cs" />
-    <Compile Include="source\lib\DB.cs" />
+    <Compile Include="source\others\Connection.cs" />
+    <Compile Include="source\others\DB.cs" />
     <Compile Include="source\commands\GetLastImage.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="source\commands\ReciveUpdate.cs" />
     <Compile Include="source\commands\SendUpdate.cs" />
-    <Compile Include="source\lib\Log.cs" />
+    <Compile Include="source\others\Log.cs" />
+    <Compile Include="source\others\ReturnAnswer.cs" />
     <Compile Include="source\Tools.cs" />
   </ItemGroup>
   <ItemGroup>

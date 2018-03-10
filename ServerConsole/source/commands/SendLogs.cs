@@ -5,47 +5,39 @@ using ServerConsole.source.others;
 
 namespace ServerConsole.source.commands
 {
-    internal class SendUpdate : Command
+    class SendLogs : Command
     {
-        public SendUpdate(Connection connection, ReturnAnswer returnAnswer)
+        public SendLogs(Connection connection, ReturnAnswer returnAnswer)
         {
-            Me = "SendUpdate";
+            Me = "SendLogs";
             this.connection = connection;
             this.returnAnswer = returnAnswer;
         }
+
         protected override void Execute(List<string> args)
         {
             try
             {
-                T.Divide(args, Var);
+                T.Divide(args, Var, true);
                 T.ConnectWithMission(Var.MissionName, Var);
                 for (var i = 0; i < Var.Arguments.Count; i++)
                 {
                     if (i % 2 != 1) continue;
-                    string sql;
+                    string message = returnAnswer.stringIP+"_"+Var.Arguments[i];
                     var time = Var.Arguments[i - 1];
-                    if (Var.Parameter == "Images")
-                    {
-                        var valueImg = Var.Arguments[i];
-                        sql = "INSERT INTO " + Var.Parameter + " VALUES (" + time + ", '" + valueImg + "')";
-                    }
-                    else
-                    {
-                        var value = Var.Arguments[i];
-                        sql = "INSERT INTO " + Var.Parameter + " VALUES (" + time + ", " + value + ")";
-                    }
+                    string sql = "INSERT INTO Logs VALUES (" + time + ", '" + message + "')";
 
                     Var.Db.Query(sql);
                 }
 
-                recive = Me + "_" + Var.Parameter;
+                recive = Me + "_";
                 respond = "OK";
                 Answer(Answers.Succesful);
             }
             catch (Exception e)
             {
                 ExceptionTransform(e.Message);
-                recive = Me + "_" + Var.Parameter;
+                recive = Me + "_";
                 respond = exceptionMsg;
                 Answer("!" + e.Message);
             }

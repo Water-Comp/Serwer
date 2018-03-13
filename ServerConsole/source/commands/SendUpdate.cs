@@ -39,9 +39,6 @@ namespace ServerConsole.source.commands
 
                     Var.Db.Query(sql);
                 }
-
-                recive = Me + "_" + Var.Parameter;
-                respond = "OK";
                 Answer(Answers.Succesful);
             }
             catch (Exception e)
@@ -50,9 +47,6 @@ namespace ServerConsole.source.commands
                 recive = Me + "_" + Var.Parameter;
                 respond = exceptionMsg;
                 Answer("!" + e.Message);
-            }
-            finally
-            {
                 Log.Add(returnAnswer.stringIP, recive, respond, Var.Db);
             }
         }

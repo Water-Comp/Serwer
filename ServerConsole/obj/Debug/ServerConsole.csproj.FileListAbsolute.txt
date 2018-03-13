@@ -22,3 +22,4 @@ C:\Users\zaqqz\Desktop\Repositories\Serwer\ServerConsole\obj\Debug\ServerConsole
 C:\Users\zaqqz\Desktop\Repositories\Serwer\ServerConsole\obj\Debug\ServerConsole.csproj.CoreCompileInputs.cache
 C:\Users\zaqqz\Desktop\Repositories\Serwer\ServerConsole\obj\Debug\ServerConsole.exe
 C:\Users\zaqqz\Desktop\Repositories\Serwer\ServerConsole\obj\Debug\ServerConsole.pdb
+C:\Users\zaqqz\Desktop\Repositories\Serwer\ServerConsole\obj\Debug\ServerConsole.csproj.CopyComplete

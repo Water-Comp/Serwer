@@ -48,21 +48,34 @@ namespace ServerConsole.source.lib
         /* Reciving messeage from client*/
         public string Recive()
         {
-            byte[] b = new byte[100];
-            int k = s.Receive(b);
-            string wynik = "";
-            for (int i = 0; i < k; i++)
-                wynik = wynik + Convert.ToChar(b[i]);
-            localIpEndPoint = (IPEndPoint) s.LocalEndPoint;
-            wynik = wynik.Replace(',', '.');
-            return wynik;
-
+            try
+            {
+                byte[] b = new byte[500000000];
+                int k = s.Receive(b);
+                string wynik = "";
+                for (int i = 0; i < k; i++)
+                    wynik = wynik + Convert.ToChar(b[i]);
+                localIpEndPoint = (IPEndPoint) s.LocalEndPoint;
+                wynik = wynik.Replace(',', '.');
+                return wynik;
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
         }
         /* Sending respond to client*/
         public void Respond(string respond)
         {
-            ASCIIEncoding asen = new ASCIIEncoding();
-            s.Send(asen.GetBytes(respond));
+            try
+            {
+                ASCIIEncoding asen = new ASCIIEncoding();
+                s.Send(asen.GetBytes(respond));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
         }
 
         public int Requests()

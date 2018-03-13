@@ -13,14 +13,13 @@ namespace ServerConsole
             ReturnAnswer returnAnswer = new ReturnAnswer();
             
             //Initialize connection
-            string IP;
             bool tmp = true;
-            Console.WriteLine("Podaj IP:");
+            Console.WriteLine("IP:");
             Connection connection = new Connection();
 
             while (tmp)
             {
-                IP = Console.ReadLine();
+                var IP = Console.ReadLine();
                 try
                 {
                     connection.init(IP, 8001, returnAnswer);
@@ -28,7 +27,7 @@ namespace ServerConsole
                 }
                 catch (Exception)
                 {
-                    Console.WriteLine("wrong ip");
+                    Console.WriteLine("Wrong IP!");
                 }
             }
 

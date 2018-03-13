@@ -63,7 +63,7 @@ namespace ServerConsole.source
             {
                 var.MissionName = args[0];
                 var.Parameter = args[1];
-                args[2] = args[2].Replace('.', ',');
+                //args[2] = args[2].Replace('.', ',');
                 var.Time = double.Parse(args[2]);
             }
             catch

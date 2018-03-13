@@ -1,0 +1,7 @@
+C:\Users\zaqqz\source\repos\ObrazkoRzucacz\ObrazkoRzucacz\bin\Debug\ObrazkoRzucacz.exe.config
+C:\Users\zaqqz\source\repos\ObrazkoRzucacz\ObrazkoRzucacz\bin\Debug\ObrazkoRzucacz.exe
+C:\Users\zaqqz\source\repos\ObrazkoRzucacz\ObrazkoRzucacz\bin\Debug\ObrazkoRzucacz.pdb
+C:\Users\zaqqz\source\repos\ObrazkoRzucacz\ObrazkoRzucacz\obj\Debug\ObrazkoRzucacz.csprojResolveAssemblyReference.cache
+C:\Users\zaqqz\source\repos\ObrazkoRzucacz\ObrazkoRzucacz\obj\Debug\ObrazkoRzucacz.csproj.CoreCompileInputs.cache
+C:\Users\zaqqz\source\repos\ObrazkoRzucacz\ObrazkoRzucacz\obj\Debug\ObrazkoRzucacz.exe
+C:\Users\zaqqz\source\repos\ObrazkoRzucacz\ObrazkoRzucacz\obj\Debug\ObrazkoRzucacz.pdb
